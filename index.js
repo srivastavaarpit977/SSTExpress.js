@@ -21,12 +21,20 @@ app.post('/courses',(req,res)=>{
 })
 
 app.put('/courses/:id', (req, res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) return res.status(404).send('The course with the given ID was not found');
-
-    course.name = req.body.name;
-    console.log(courses);
-    res.json(course);
+    try{
+        let singleCourse=courses.find((courses)=>{
+            return courses.id===+req.params.id;
+        
+        });
+        if(!singleCourse){
+            res.status(404).send('The course with the given ID was not found');
+        }
+        siingleCourse.name=req.body.name;
+        res.send(courses);
+    }
+    catch(err){
+        res.status(500).send('Something went wrong');
+    }
 })
 
 app.delete('/courses/:id', (req, res) => {
