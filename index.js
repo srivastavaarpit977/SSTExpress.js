@@ -1,6 +1,8 @@
 const express=require('express');
 const app=express();
 app.use(express.json());
+app.use(middleware);
+
 let courses=[
     {id:1,name:'course1'},
     {id:2,name:'course2'},
@@ -29,7 +31,7 @@ app.put('/courses/:id', (req, res) => {
         if(!singleCourse){
             res.status(404).send('The course with the given ID was not found');
         }
-        siingleCourse.name=req.body.name;
+        singleCourse.name=req.body.name;
         res.send(courses);
     }
     catch(err){
@@ -46,6 +48,13 @@ app.delete('/courses/:id', (req, res) => {
     console.log(courses);
     res.json(course)
 })
+
+function middleware(req, res, next) {
+    console.log(`${req.method} request from ${req.ip} to ${req.hostname} at ${new Date()}`);
+    next();
+}
+
+
 
 
 
