@@ -49,6 +49,8 @@ app.delete('/courses/:id', (req, res) => {
     res.json(course)
 })
 
+
+
 function middleware(req, res, next) {
     console.log(`${req.method} request from ${req.ip} to ${req.hostname} at ${new Date()}`);
     next();
